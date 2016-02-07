@@ -25,5 +25,9 @@ module.exports = {
         loader: 'style!css!less'
       }
     ]
+  },
+
+  externals: {
+    "google": "google"
   }
 };
