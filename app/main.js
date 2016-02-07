@@ -6,6 +6,7 @@ import './style.less';
 import ResultsView from './ResultsView.js';
 import SearchView from './SearchView.js';
 import PostcodeService from './PostcodeService.js';
+import Clipboard from '../node_modules/clipboard/lib/clipboard.js';
 
 function startApplication() {
   let postcodeService = new PostcodeService();
@@ -27,6 +28,12 @@ function startApplication() {
     });
 
   }});
+
+  new Clipboard('#copy-table', {
+    text: function(trigger) {
+      return resultsView.getTableHTML();
+    }
+  });
 
 }
 

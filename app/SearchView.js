@@ -11,7 +11,7 @@ class SearchView {
   }
 
   searchForCoordinates() {
-    let postcodes = this.postcodeInput.value.split('\n');
+    let postcodes = this.postcodeInput.value.trim().split('\n');
     this.searchAction(postcodes);
   }
 }

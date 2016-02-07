@@ -37,6 +37,10 @@ class ResultsView {
     this.tbody.appendChild(tr);
 
   }
+
+  getTableHTML() {
+    return this.tableElement.outerHTML;
+  }
 }
 
 export default ResultsView;
