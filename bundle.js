@@ -72,17 +72,24 @@
 	  var searchView = new _SearchView2.default({ searchAction: function searchAction(postcodes) {
 
 	      resultsView.clearTable();
+	      resultsView.markAsLoading();
 
-	      postcodes.forEach(function (postcode, i) {
+	      Promise.all(postcodes.map(function (postcode, i) {
+	        return new Promise(function (resolve, reject) {
 
-	        setTimeout(function () {
+	          setTimeout(function () {
 
-	          postcodeService.getPostcodeLocation({ postcode: postcode }).then(function (locations) {
-	            return resultsView.render(locations);
-	          }).catch(function (error) {
-	            return console.error(error);
-	          });
-	        }, i * 1000);
+	            postcodeService.getPostcodeLocation({ postcode: postcode }).then(function (locations) {
+	              resultsView.render(locations);
+	              resolve();
+	            }).catch(function (error) {
+	              console.error(error);
+	              reject();
+	            });
+	          }, i * 1000);
+	        });
+	      })).then(function () {
+	        return resultsView.markAsLoaded();
 	      });
 	    } });
 
@@ -473,9 +480,11 @@
 	    this.tableElement = document.createElement('table');
 	    this.tableElement.className = 'table table-condensed table-hover';
 	    this.tbody = document.createElement('tbody');
-	    this.tableElement.innerHTML = '\n      <thead>\n        <tr>\n          <th>Postcode</th>\n          <th>Longitude</th>\n          <th>Latitude</th>\n        </tr>\n      </thead>\n    ';
+
+	    this.tableElement.innerHTML = '\n      <thead>\n        <tr id="head-row">\n          <th>Postcode</th>\n          <th>Longitude</th>\n          <th>Latitude</th>\n        </tr>\n      </thead>\n    ';
 	    this.tableElement.appendChild(this.tbody);
 	    this.containerElement.appendChild(this.tableElement);
+	    this.tableHeadRow = document.getElementById('head-row');
 	  }
 
 	  _createClass(ResultsView, [{
@@ -499,6 +508,16 @@
 	    key: 'getTableHTML',
 	    value: function getTableHTML() {
 	      return this.tableElement.outerHTML;
+	    }
+	  }, {
+	    key: 'markAsLoading',
+	    value: function markAsLoading() {
+	      this.tableHeadRow.className = 'danger';
+	    }
+	  }, {
+	    key: 'markAsLoaded',
+	    value: function markAsLoaded() {
+	      this.tableHeadRow.className = 'success';
 	    }
 	  }]);
 
