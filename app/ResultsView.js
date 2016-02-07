@@ -8,9 +8,10 @@ class ResultsView {
     this.tableElement = document.createElement('table');
     this.tableElement.className = 'table table-condensed table-hover';
     this.tbody = document.createElement('tbody');
+
     this.tableElement.innerHTML = `
       <thead>
-        <tr>
+        <tr id="head-row">
           <th>Postcode</th>
           <th>Longitude</th>
           <th>Latitude</th>
@@ -19,6 +20,7 @@ class ResultsView {
     `;
     this.tableElement.appendChild(this.tbody);
     this.containerElement.appendChild(this.tableElement);
+    this.tableHeadRow = document.getElementById('head-row');
   }
 
   clearTable() {
@@ -41,6 +43,14 @@ class ResultsView {
 
   getTableHTML() {
     return this.tableElement.outerHTML;
+  }
+
+  markAsLoading() {
+    this.tableHeadRow.className = 'danger';
+  }
+
+  markAsLoaded() {
+    this.tableHeadRow.className = 'success';
   }
 }
 

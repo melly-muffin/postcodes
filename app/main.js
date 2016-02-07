@@ -14,18 +14,29 @@ function startApplication() {
   let searchView = new SearchView({searchAction: function(postcodes){
 
     resultsView.clearTable();
+    resultsView.markAsLoading();
 
-    postcodes.forEach((postcode, i)=> {
+    Promise.all(postcodes.map((postcode, i)=> {
+      return new Promise((resolve, reject) => {
 
-      setTimeout(()=>{
+        setTimeout(()=>{
 
-        postcodeService.getPostcodeLocation({ postcode: postcode })
-          .then(locations => resultsView.render(locations))
-          .catch(error => console.error(error))
+          postcodeService.getPostcodeLocation({ postcode: postcode })
+            .then(locations => {
+              resultsView.render(locations);
+              resolve();
+            })
+            .catch(error => {
+              console.error(error);
+              reject();
+            });
 
-      }, i * 1000);
+        }, i * 1000);
 
-    });
+      });
+
+    }))
+    .then(() => resultsView.markAsLoaded());
 
   }});
 
