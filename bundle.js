@@ -132,7 +132,7 @@
 
 
 	// module
-	exports.push([module.id, "", ""]);
+	exports.push([module.id, "textarea.form-control {\n  margin-top: 10px;\n  height: 80%;\n}\n#input {\n  height: 600px;\n}\n@media all and (max-width: 992px) {\n  #input {\n    height: auto;\n  }\n}\n", ""]);
 
 	// exports
 
@@ -471,6 +471,7 @@
 
 	    this.containerElement = document.getElementById('location-results');
 	    this.tableElement = document.createElement('table');
+	    this.tableElement.className = 'table table-condensed table-hover';
 	    this.tbody = document.createElement('tbody');
 	    this.tableElement.innerHTML = '\n      <thead>\n        <tr>\n          <th>Postcode</th>\n          <th>Longitude</th>\n          <th>Latitude</th>\n        </tr>\n      </thead>\n    ';
 	    this.tableElement.appendChild(this.tbody);
