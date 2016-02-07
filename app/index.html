@@ -3,21 +3,35 @@
 <head lang="en">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
   <title>Postcode to Coords</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+        integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body>
 
-<div id="input">
-  <button id="getCoordinates">Get Coordinates</button>
-  <textarea id="input-postcode" ></textarea>
+<div class="container-fluid">
+
+  <div class="row">
+
+    <div id="input" class="col-md-2">
+
+      <button id="getCoordinates" class="btn btn-primary btn-lg">Get Coordinates</button>
+      <textarea id="input-postcode" class="form-control" placeholder="Enter postcodes here"></textarea>
+
+    </div>
+
+    <div id="location-results" class="col-md-10">
+
+      <button id="copy-table" class="btn btn-default">Copy Table</button>
+
+    </div>
+
+  </div>
+
 </div>
-
-<button id="copy-table">Copy Table</button>
-
-<div id="location-results"></div>
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoFGuiCpDQG86NYQI4xNZOfk52B9ctqjA&signed_in=true"></script>
+<script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoFGuiCpDQG86NYQI4xNZOfk52B9ctqjA&signed_in=true"></script>
 <script src="bundle.js" async></script>
 </body>
 </html>

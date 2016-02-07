@@ -6,6 +6,7 @@ class ResultsView {
   constructor() {
     this.containerElement = document.getElementById('location-results');
     this.tableElement = document.createElement('table');
+    this.tableElement.className = 'table table-condensed table-hover';
     this.tbody = document.createElement('tbody');
     this.tableElement.innerHTML = `
       <thead>
